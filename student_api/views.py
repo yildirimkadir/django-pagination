@@ -19,6 +19,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
+from rest_framework.filters import OrderingFilter
 # Create your views here.
 
 ### CBV ###
@@ -106,11 +107,12 @@ class StudentRUD(RetrieveUpdateDestroyAPIView):
 class StudentGRUD(ModelViewSet):
     queryset=Student.objects.all()
     serializer_class=StudentSerializer
-    pagination_class= MycursorPagination
+    # pagination_class= MycursorPagination
     
-    filter_backends = [SearchFilter, DjangoFilterBackend]
+    filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
     filterset_fields = ['first_name', 'last_name']
     search_fields = ['first_name']
+    ordering_fields = ['first_name']
     
     
     def get_queryset(self):
